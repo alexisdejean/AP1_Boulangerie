@@ -75,6 +75,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function setEmail(string $email): static
     {
+=======
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(string $email): static
+    {
+>>>>>>> feature
         $this->email = $email;
         return $this;
     }
@@ -88,6 +97,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function setRoles(array $roles): static
     {
+>>>>>>> feature
         $this->roles = $roles;
         return $this;
     }
@@ -105,7 +115,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function eraseCredentials(): void
     {
+<<<<<<< HEAD
+        // si tu stockes un mot de passe en clair temporaire, tu peux l'effacer ici
+=======
         // Si tu stockes un mot de passe en clair temporairement, efface-le ici
+>>>>>>> feature
     }
 
     // --------- Getters / Setters pour tes champs -----
