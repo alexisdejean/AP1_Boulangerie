@@ -14,52 +14,53 @@ class Prestation
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column]
-    private ?int $id_prestation = null;
+    #[ORM\Column(type: Types::TEXT)]
+    private ?string $article = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $article_prestation = null;
+    #[ORM\Column(type: Types::TEXT)]
+    private ?string $image = null;
 
-    #[ORM\Column(type: Types::TEXT, nullable: true)]
-    private ?string $image_prestation = null;
+    #[ORM\ManyToOne(inversedBy: 'prestations')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?user $user_prestation = null;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getIdPrestation(): ?int
+    public function getArticle(): ?string
     {
-        return $this->id_prestation;
+        return $this->article;
     }
 
-    public function setIdPrestation(int $id_prestation): static
+    public function setArticle(string $article): static
     {
-        $this->id_prestation = $id_prestation;
+        $this->article = $article;
 
         return $this;
     }
 
-    public function getArticlePrestation(): ?string
+    public function getImage(): ?string
     {
-        return $this->article_prestation;
+        return $this->image;
     }
 
-    public function setArticlePrestation(string $article_prestation): static
+    public function setImage(string $image): static
     {
-        $this->article_prestation = $article_prestation;
+        $this->image = $image;
 
         return $this;
     }
 
-    public function getImagePrestation(): ?string
+    public function getUserPrestation(): ?user
     {
-        return $this->image_prestation;
+        return $this->user_prestation;
     }
 
-    public function setImagePrestation(?string $image_prestation): static
+    public function setUserPrestation(?user $user_prestation): static
     {
-        $this->image_prestation = $image_prestation;
+        $this->user_prestation = $user_prestation;
 
         return $this;
     }

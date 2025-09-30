@@ -15,4 +15,14 @@ final class ConnexionController extends AbstractController
             'controller_name' => 'ConnexionController',
         ]);
     }
+    public function login(AuthenticationUtils $authenticationUtils): Response
+    {
+        // get the login error if there is one
+        $error = $authenticationUtils->getLastAuthenticationError();
+        // last username entered by the user
+        $lastUsername = $authenticationUtils->getLastUsername();
+
+        return $this->render('connexion/index.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
+    }
+
 }
