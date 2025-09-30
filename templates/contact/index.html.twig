@@ -10,15 +10,17 @@
 
 <div class="example-wrapper">
     <h1>Contact</avis>
-    <div class="card text-white bg-primary mb-3" style="max-width: 20rem;">
-  <div class="card-header">
-      <input type="text" class="form-control" placeholder="Numéro de téléphone" aria-label="Numéro de téléphone" aria-describedby="button-addon2">
-  </div>
-  <div class="card-body">
-      <textarea class="form-control" id="exampleTextarea" rows="3" placeholder="Commentaire"></textarea>
-      <input type="submit" class="btn btn-light" value="Envoyer">
-  </div>
-</div>
+    <form action="" method="POST">
+        <div class="card text-white bg-primary mb-3" id="carte-contact" style="max-width: 20rem;">
+            <div class="card-header">
+            <input type="text" class="form-control" placeholder="Numéro de téléphone" aria-label="Numéro de téléphone" aria-describedby="button-addon2">
+            </div>
+            <div class="card-body">
+            <textarea class="form-control" id="exampleTextarea" rows="3" placeholder="Commentaire"></textarea>
+            <input type="submit" class="btn btn-light"value="Envoyer">
+            </div>
+        </div>
+    </form>
 </div>
 
 {% endblock %}
