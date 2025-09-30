@@ -6,28 +6,15 @@ use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Security\Core\User\UserInterface;
-use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
-class User implements UserInterface, PasswordAuthenticatedUserInterface
+class User
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
 
-    // Email comme identifiant pour l’authentification
-    #[ORM\Column(length: 180, unique: true)]
-    private ?string $email = null;
-
-    #[ORM\Column(type: 'json')]
-    private array $roles = [];
-
-    #[ORM\Column(length: 255)]
-    private ?string $password = null; // mot de passe hashé
-
-    // ---- tes anciens champs ----
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $nom_user = null;
 
@@ -57,72 +44,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->presentations = new ArrayCollection();
     }
 
-    // --------- Méthodes obligatoires pour Symfony Security ---------
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
+    public function getId(): ?int { return $this->id; }
 
-    public function getUserIdentifier(): string
-    {
-        return (string) $this->email;
-    }
-
-    public function getEmail(): ?string
-    {
-        return $this->email;
-    }
-
-    public function setEmail(string $email): static
-    {
-=======
-    public function getEmail(): ?string
-    {
-        return $this->email;
-    }
-
-    public function setEmail(string $email): static
-    {
->>>>>>> feature
-        $this->email = $email;
-        return $this;
-    }
-
-    public function getRoles(): array
-    {
-        $roles = $this->roles;
-        $roles[] = 'ROLE_USER'; // rôle par défaut
-        return array_unique($roles);
-    }
-
-    public function setRoles(array $roles): static
-    {
->>>>>>> feature
-        $this->roles = $roles;
-        return $this;
-    }
-
-    public function getPassword(): string
-    {
-        return $this->password;
-    }
-
-    public function setPassword(string $password): static
-    {
-        $this->password = $password;
-        return $this;
-    }
-
-    public function eraseCredentials(): void
-    {
-<<<<<<< HEAD
-        // si tu stockes un mot de passe en clair temporaire, tu peux l'effacer ici
-=======
-        // Si tu stockes un mot de passe en clair temporairement, efface-le ici
->>>>>>> feature
-    }
-
-    // --------- Getters / Setters pour tes champs -----
     public function getNomUser(): ?string { return $this->nom_user; }
     public function setNomUser(?string $nom_user): static { $this->nom_user = $nom_user; return $this; }
 
@@ -135,7 +58,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function getTypeUser(): ?string { return $this->type_user; }
     public function setTypeUser(?string $type_user): static { $this->type_user = $type_user; return $this; }
 
-    // --------- Relations -----
+    // ---- Relations ----
     public function getContacts(): Collection { return $this->contacts; }
     public function addContact(Contact $contact): static {
         if (!$this->contacts->contains($contact)) {
