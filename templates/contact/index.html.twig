@@ -9,12 +9,13 @@
 </style>
 
 <div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>C:/wamp64/www/AP1_Boulangerie/src/Controller/ContactController.php</code></li>
-        <li>Your template at <code>C:/wamp64/www/AP1_Boulangerie/templates/contact/index.html.twig</code></li>
-    </ul>
+    <h1>Contact</avis>
+    <div class="card text-white bg-primary mb-3" style="max-width: 20rem;">
+  <div class="card-header">
+      <input type="text" class="text-area" placeholder="Numéro de téléphone">
+  </div>
+  <div class="card-body">
+      <textarea class="form-control" id="exampleTextarea" rows="3" placeholder="Commentaire"></textarea>
+  </div>
 </div>
 {% endblock %}
