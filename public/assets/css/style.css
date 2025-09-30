@@ -1,4 +1,7 @@
-.text-area{
-    background-color: white;
-    whidth: 90px !important;
+card{
+    background-color: orange !important ;
+
+}
+.submit{
+    margin-top: 10px !important;
 }
