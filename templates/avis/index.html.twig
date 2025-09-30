@@ -8,14 +8,23 @@
     .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
 </style>
 <div class="example-wrapper">
-    <h1>Avis</avis>
-    <div class="card text-white bg-primary mb-3" style="max-width: 20rem;">
+    <h1>Avis</h1>
+    <div class="card text-white bg-primary mb-3" style="max-width: rem;">
   <div class="card-header">
-      <textarea class="form-control" id="exampleTextarea" rows="3" placeholder="Note"></textarea>
+      <label for="note" class="form-label mt-4">Note</label>
+      <select class="form-select" id="note">
+        <option>0</option>
+        <option>1</option>
+        <option>2</option>
+        <option>3</option>
+        <option>4</option>
+        <option>5</option>
+      </select>
   </div>
   <div class="card-body">
-      <textarea class="form-control" id="exampleTextarea" rows="3" placeholder="Commentaire"></textarea>
-  </div>
+      <textarea class="form-control" id="commentaire" placeholder="Commentaire"></textarea>
+      <button type="button" class="btn btn-primary middle">Ajouter</button>
+      </div>
 </div>
 </div>
 {% endblock %}
