@@ -117,3 +117,4 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     // … et ainsi de suite pour tes autres propriétés
 }
+?>
