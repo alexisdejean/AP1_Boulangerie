@@ -7,15 +7,16 @@
     .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
     .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
 </style>
-
+    {% for unpresentation in lesPresentation %}
 <div class="example-wrapper">
     <div class="example-wrapper">
     <div class="card text-white bg-primary mb-3" style="max-width: rem;">
         <div class="card-body">
-        <h4 class="card-title">une image du prestataire ici</h4>
-        <p class="card-text">présentation du prestataire et de ses activités</p>
+        <h4 class="card-title">{{article.titre}}</h4>
+        <p class="card-text"> {{article.description}}</p>
         </div>
     </div>
 </div>
 </div>
+{% endfor %}
 {% endblock %}
