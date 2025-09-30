@@ -23,6 +23,9 @@ class Avis
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $commentaire_avis = null;
 
+    #[ORM\Column]
+    private ?\DateTime $date_avis = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -60,6 +63,18 @@ class Avis
     public function setCommentaireAvis(?string $commentaire_avis): static
     {
         $this->commentaire_avis = $commentaire_avis;
+
+        return $this;
+    }
+
+    public function getDateAvis(): ?\DateTime
+    {
+        return $this->date_avis;
+    }
+
+    public function setDateAvis(\DateTime $date_avis): static
+    {
+        $this->date_avis = $date_avis;
 
         return $this;
     }
