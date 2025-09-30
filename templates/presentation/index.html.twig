@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello PresentationController!{% endblock %}
+{% block title %}Présentation{% endblock %}
 
 {% block body %}
 <style>
@@ -9,12 +9,13 @@
 </style>
 
 <div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>C:/wamp64/www/AP1_Boulangerie/src/Controller/PresentationController.php</code></li>
-        <li>Your template at <code>C:/wamp64/www/AP1_Boulangerie/templates/presentation/index.html.twig</code></li>
-    </ul>
+    <div class="example-wrapper">
+    <div class="card text-white bg-primary mb-3" style="max-width: 20rem;">
+        <div class="card-body">
+        <h4 class="card-title">une image du prestataire ici</h4>
+        <p class="card-text">présentation du prestataire et de ses activités</p>
+        </div>
+    </div>
+</div>
 </div>
 {% endblock %}
