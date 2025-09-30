@@ -17,10 +17,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?int $id = null;
 
-<<<<<<< HEAD
     // Email comme identifiant pour l’authentification
-=======
->>>>>>> feature
     #[ORM\Column(length: 180, unique: true)]
     private ?string $email = null;
 
@@ -28,11 +25,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private array $roles = [];
 
     #[ORM\Column(length: 255)]
-<<<<<<< HEAD
     private ?string $password = null; // mot de passe hashé
-=======
-    private ?string $password = null;
->>>>>>> feature
 
     // ---- tes anciens champs ----
     #[ORM\Column(length: 255, nullable: true)]
@@ -44,14 +37,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $numero_user = null;
 
-<<<<<<< HEAD
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $type_user = null;
 
     // ---- relations ----
-=======
-    // ---- relations (inchangées) ----
->>>>>>> feature
     #[ORM\OneToMany(targetEntity: Contact::class, mappedBy: 'user_contact')]
     private Collection $contacts;
 
@@ -68,17 +57,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->presentations = new ArrayCollection();
     }
 
-<<<<<<< HEAD
     // --------- Méthodes obligatoires pour Symfony Security ---------
-=======
-    // --------- Méthodes UserInterface ----------
->>>>>>> feature
     public function getId(): ?int
     {
         return $this->id;
     }
 
-<<<<<<< HEAD
     public function getUserIdentifier(): string
     {
         return (string) $this->email;
@@ -104,27 +88,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-<<<<<<< HEAD
     public function getRoles(): array
     {
         $roles = $this->roles;
         $roles[] = 'ROLE_USER'; // rôle par défaut
-        return array_unique($roles);
-    }
-
-    public function setRoles(array $roles): static
-    {
-=======
-    public function getUserIdentifier(): string
-    {
-        return (string) $this->email;
-    }
-
-    public function getRoles(): array
-    {
-        $roles = $this->roles;
-        // garanti au moins ROLE_USER
-        $roles[] = 'ROLE_USER';
         return array_unique($roles);
     }
 
@@ -155,7 +122,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 >>>>>>> feature
     }
 
-    // --------- Tes getters/setters perso ---------
+    // --------- Getters / Setters pour tes champs -----
     public function getNomUser(): ?string { return $this->nom_user; }
     public function setNomUser(?string $nom_user): static { $this->nom_user = $nom_user; return $this; }
 
@@ -165,13 +132,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function getNumeroUser(): ?string { return $this->numero_user; }
     public function setNumeroUser(?string $numero_user): static { $this->numero_user = $numero_user; return $this; }
 
-<<<<<<< HEAD
     public function getTypeUser(): ?string { return $this->type_user; }
     public function setTypeUser(?string $type_user): static { $this->type_user = $type_user; return $this; }
 
-    // --------- Relations ---------
+    // --------- Relations -----
     public function getContacts(): Collection { return $this->contacts; }
-    public function addContact(Contact $contact): static { 
+    public function addContact(Contact $contact): static {
         if (!$this->contacts->contains($contact)) {
             $this->contacts->add($contact);
             $contact->setUserContact($this);
@@ -220,8 +186,4 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         }
         return $this;
     }
-=======
-    // … et ainsi de suite pour tes autres propriétés
->>>>>>> feature
 }
-?>
