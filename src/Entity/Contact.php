@@ -14,11 +14,8 @@ class Contact
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column]
-    private ?int $id_contact = null;
-
-    #[ORM\Column]
-    private ?int $numero_contact = null;
+    #[ORM\Column(type: Types::TEXT)]
+    private ?string $numero_contact = null;
 
     #[ORM\Column(type: Types::TEXT)]
     private ?string $demande_contact = null;
@@ -26,29 +23,21 @@ class Contact
     #[ORM\Column]
     private ?\DateTime $date_contact = null;
 
+    #[ORM\ManyToOne(inversedBy: 'contacts')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?user $user_contact = null;
+
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getIdContact(): ?int
-    {
-        return $this->id_contact;
-    }
-
-    public function setIdContact(int $id_contact): static
-    {
-        $this->id_contact = $id_contact;
-
-        return $this;
-    }
-
-    public function getNumeroContact(): ?int
+    public function getNumeroContact(): ?string
     {
         return $this->numero_contact;
     }
 
-    public function setNumeroContact(int $numero_contact): static
+    public function setNumeroContact(string $numero_contact): static
     {
         $this->numero_contact = $numero_contact;
 
@@ -75,6 +64,18 @@ class Contact
     public function setDateContact(\DateTime $date_contact): static
     {
         $this->date_contact = $date_contact;
+
+        return $this;
+    }
+
+    public function getUserContact(): ?user
+    {
+        return $this->user_contact;
+    }
+
+    public function setUserContact(?user $user_contact): static
+    {
+        $this->user_contact = $user_contact;
 
         return $this;
     }

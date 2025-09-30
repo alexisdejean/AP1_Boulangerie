@@ -14,30 +14,19 @@ class Presentation
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column]
-    private ?int $id_presentation = null;
-
-    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    #[ORM\Column(type: Types::TEXT)]
     private ?string $image_presentation = null;
 
-    #[ORM\Column(type: Types::TEXT)]
+    #[ORM\Column(length: 255)]
     private ?string $description_presentation = null;
+
+    #[ORM\ManyToOne(inversedBy: 'presentations')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?user $user_presentation = null;
 
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getIdPresentation(): ?int
-    {
-        return $this->id_presentation;
-    }
-
-    public function setIdPresentation(int $id_presentation): static
-    {
-        $this->id_presentation = $id_presentation;
-
-        return $this;
     }
 
     public function getImagePresentation(): ?string
@@ -45,7 +34,7 @@ class Presentation
         return $this->image_presentation;
     }
 
-    public function setImagePresentation(?string $image_presentation): static
+    public function setImagePresentation(string $image_presentation): static
     {
         $this->image_presentation = $image_presentation;
 
@@ -60,6 +49,18 @@ class Presentation
     public function setDescriptionPresentation(string $description_presentation): static
     {
         $this->description_presentation = $description_presentation;
+
+        return $this;
+    }
+
+    public function getUserPresentation(): ?user
+    {
+        return $this->user_presentation;
+    }
+
+    public function setUserPresentation(?user $user_presentation): static
+    {
+        $this->user_presentation = $user_presentation;
 
         return $this;
     }
