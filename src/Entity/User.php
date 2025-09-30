@@ -17,7 +17,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?int $id = null;
 
-    // Email comme identifiant pour l’authentification
     #[ORM\Column(length: 180, unique: true)]
     private ?string $email = null;
 
@@ -25,7 +24,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private array $roles = [];
 
     #[ORM\Column(length: 255)]
-    private ?string $password = null; // mot de passe hashé
+    private ?string $password = null;
 
     // ---- tes anciens champs ----
     #[ORM\Column(length: 255, nullable: true)]
@@ -75,15 +74,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function setEmail(string $email): static
     {
-=======
-    public function getEmail(): ?string
-    {
-        return $this->email;
-    }
-
-    public function setEmail(string $email): static
-    {
->>>>>>> feature
         $this->email = $email;
         return $this;
     }
@@ -97,7 +87,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function setRoles(array $roles): static
     {
->>>>>>> feature
         $this->roles = $roles;
         return $this;
     }
@@ -115,14 +104,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function eraseCredentials(): void
     {
-<<<<<<< HEAD
-        // si tu stockes un mot de passe en clair temporaire, tu peux l'effacer ici
-=======
         // Si tu stockes un mot de passe en clair temporairement, efface-le ici
->>>>>>> feature
     }
 
-    // --------- Getters / Setters pour tes champs -----
+    // --------- Getters/Setters perso ---------
     public function getNomUser(): ?string { return $this->nom_user; }
     public function setNomUser(?string $nom_user): static { $this->nom_user = $nom_user; return $this; }
 
@@ -135,7 +120,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function getTypeUser(): ?string { return $this->type_user; }
     public function setTypeUser(?string $type_user): static { $this->type_user = $type_user; return $this; }
 
-    // --------- Relations -----
+    // --------- Relations ---------
     public function getContacts(): Collection { return $this->contacts; }
     public function addContact(Contact $contact): static {
         if (!$this->contacts->contains($contact)) {
