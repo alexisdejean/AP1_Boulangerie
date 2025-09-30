@@ -23,6 +23,9 @@ class Contact
     #[ORM\Column(type: Types::TEXT)]
     private ?string $demande_contact = null;
 
+    #[ORM\Column]
+    private ?\DateTime $date_contact = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -60,6 +63,18 @@ class Contact
     public function setDemandeContact(string $demande_contact): static
     {
         $this->demande_contact = $demande_contact;
+
+        return $this;
+    }
+
+    public function getDateContact(): ?\DateTime
+    {
+        return $this->date_contact;
+    }
+
+    public function setDateContact(\DateTime $date_contact): static
+    {
+        $this->date_contact = $date_contact;
 
         return $this;
     }
