@@ -1,16 +1,18 @@
 # AP1_Boulangerie
 
-Un projet scolaire permettant de mettre à disposition un site Web dynamique à une boulangerie.
-Le projet permet de recueillir des avis, des contacts, de présenter laboulangerie et ses prestations.
-Un espace membre est inclu avec des sessions pour séparer utilisateurs lambdas de l'administrateur.
+Un projet scolaire permettant de mettre à disposition un site Web dynamique à une boulangerie.  
+Le projet permet de recueillir des avis, des contacts, de présenter laboulangerie et ses prestations.  
+Un espace membre est inclu avec des sessions pour séparer utilisateurs lambdas de l'administrateur.  
 
 ## Installation
 
-Symfony PHP
+Symfony PHP  
 VS Code
-GitKraken
 
-symfony composer install
-symfony server:start
-ouvrir à l'adresse fournie
-naviguer
+symfony composer install  
+Composer require make 
+Composer require twig 
+symfony server:start  
+php bin/console make:controller
+ouvrir à l'adresse fournie  
+naviguer  
