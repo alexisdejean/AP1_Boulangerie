@@ -12,7 +12,8 @@ VS Code
 symfony composer install  
 Composer require make  
 Composer require twig  
+composer require symfony/maker-bundle --dev  
+composer require symfonycasts/verify-email-bundle  
 symfony server:start  
-php bin/console make:controller  
 ouvrir à l'adresse fournie  
 naviguer  
