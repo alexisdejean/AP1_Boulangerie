@@ -23,7 +23,9 @@
   </div>
   <div class="card-body">
       <textarea class="form-control" id="commentaire" placeholder="Commentaire"></textarea>
+      {% if app.user %}
       <button type="button" class="btn btn-primary middle">Ajouter</button>
+    {% endif %}
       </div>
 </div>
 </div>

@@ -17,7 +17,9 @@
             </div>
             <div class="card-body">
             <textarea class="form-control" id="exampleTextarea" rows="3" placeholder="Commentaire"></textarea>
+            {% if app.user %}
             <input type="submit" class="btn btn-light"value="Envoyer">
+            {% endif %}
             </div>
         </div>
     </form>
