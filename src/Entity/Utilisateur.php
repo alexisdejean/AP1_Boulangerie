@@ -30,8 +30,9 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?string $prenom = null;
 
-    #[ORM\Column]
+    #[ORM\Column(type: 'string', length: 20, nullable: true)]
     private ?string $telephone = null;
+
 
     /**
      * @var list<string> The user roles
