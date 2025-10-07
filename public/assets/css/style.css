@@ -6,4 +6,45 @@ card, #card-contact{
 .submit{
     margin-top: 10% !important;
 }
-    margin: auto !important;
+
+
+
+
+
+
+
+
+
+
+
+
+
+.prestation {  display: grid;
+    background-color: #e95420;
+  grid-template-columns: repeat(10, 1fr);
+  grid-template-rows: repeat(10, 1fr);
+  gap: 0px 0px;
+  grid-auto-flow: row;
+  grid-template-areas:
+    ". . . . . . . . . ."
+    ". image-1 image-1 image-1 image-1 . . . . ."
+    ". image-1 image-1 image-1 image-1 . text-image-1 text-image-1 text-image-1 ."
+    ". image-1 image-1 image-1 image-1 . text-image-1 text-image-1 text-image-1 ."
+    ". image-1 image-1 image-1 image-1 . . . . ."
+    ". . . . . Image-2 Image-2 Image-2 Image-2 ."
+    ". text-image-2 text-image-2 text-image-2 . Image-2 Image-2 Image-2 Image-2 ."
+    ". text-image-2 text-image-2 text-image-2 . Image-2 Image-2 Image-2 Image-2 ."
+    ". . . . . Image-2 Image-2 Image-2 Image-2 ."
+    ". . . . . . . . . .";
+}
+
+.text-image-1 { grid-area: text-image-1; 
+color: white;}
+
+.image-1 { grid-area: image-1; 
+background-color: white;}
+
+.image-2 { grid-area: Image-2; 
+background-color: white;}
+
+.text-image-2 { grid-area: text-image-2; color: white;}
