@@ -8,11 +8,20 @@
     .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
 </style>
 <div class="example-wrapper">
+{% for message in app.flashes('success') %}
+    <div class="alert alert-success">{{ message }}</div>
+{% endfor %}
+
+{% for message in app.flashes('error') %}
+    <div class="alert alert-danger">{{ message }}</div>
+{% endfor %}
+
     <h1 style="text-align: center;">Avis</h1>
     <div class="card text-white bg-primary mb-3" style="max-width: rem;">
-  <div class="card-header">
+  <form method="POST" action="{{ path('app_avis') }}">
+    <div class="card-header">
       <label for="note" class="form-label mt-4">Note</label>
-      <select class="form-select" id="note">
+      <select class="form-select" name="note">
         <option>0</option>
         <option>1</option>
         <option>2</option>
@@ -20,13 +29,15 @@
         <option>4</option>
         <option>5</option>
       </select>
-  </div>
-  <div class="card-body">
-      <textarea class="form-control" id="commentaire" placeholder="Commentaire"></textarea>
+    </div>
+    <div class="card-body">
+      <textarea class="form-control" name="commentaire" placeholder="Commentaire"></textarea>
       {% if app.user %}
-      <button type="button" class="btn btn-primary middle">Ajouter</button>
+    <button type="submit" class="btn btn-primary middle">Ajouter</button>
+
     {% endif %}
       </div>
+  </form>
 </div>
 </div>
 {% endblock %}
