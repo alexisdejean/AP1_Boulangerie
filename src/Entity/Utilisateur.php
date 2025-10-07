@@ -21,6 +21,18 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 180)]
     private ?string $email = null;
 
+    #[ORM\Column]    
+    private ?string $identifiant = null;
+
+    #[ORM\Column]
+    private ?string $nom = null;
+
+    #[ORM\Column]
+    private ?string $prenom = null;
+
+    #[ORM\Column]
+    private ?string $telephone = null;
+
     /**
      * @var list<string> The user roles
      */
@@ -35,6 +47,9 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column]
     private bool $isVerified = false;
+
+    
+
 
     public function getId(): ?int
     {
@@ -52,6 +67,50 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+    public function getIdentifiant(): ?string
+{
+    return $this->identifiant;
+}
+
+public function setIdentifiant(string $identifiant): static
+{
+    $this->identifiant = $identifiant;
+    return $this;
+}
+
+public function getNom(): ?string
+{
+    return $this->nom;
+}
+
+public function setNom(string $nom): static
+{
+    $this->nom = $nom;
+    return $this;
+}
+
+public function getPrenom(): ?string
+{
+    return $this->prenom;
+}
+
+public function setPrenom(string $prenom): static
+{
+    $this->prenom = $prenom;
+    return $this;
+}
+
+public function getTelephone(): ?string
+{
+    return $this->telephone;
+}
+
+public function setTelephone(?string $telephone): static
+{
+    $this->telephone = $telephone;
+    return $this;
+}
+
 
     /**
      * A visual identifier that represents this user.
