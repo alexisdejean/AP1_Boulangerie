@@ -3,20 +3,29 @@
 {% block title %}Présentation{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
-    {% for unpresentation in lesPresentation %}
 <div class="example-wrapper">
-    <div class="example-wrapper">
-    <div class="card text-white bg-primary mb-3" style="max-width: rem;">
+    <div class="card text-white bg-primary mb-3">
         <div class="card-body">
-        <h4 class="card-title">{{article.titre}}</h4>
-        <p class="card-text"> {{article.description}}</p>
+
+            {# Affichage de l'image si elle existe #}
+            {% if presentation.imagePresentation %}
+                <img src="/{{ presentation.imagePresentation }}" 
+                     alt="Image de présentation" 
+                     class="img-fluid mb-3" 
+                     style="max-height: 300px; object-fit: cover;">
+            {% endif %}
+
+            {% if is_granted('ROLE_ADMIN') and form %}
+                {{ form_start(form) }}
+                    {{ form_widget(form.descriptionPresentation) }}
+                    {{ form_widget(form.imageFile, {'attr': {'class': 'mt-2'}}) }}
+                    {{ form_widget(form.save, {'attr': {'class': 'btn btn-warning mt-2'}}) }}
+                {{ form_end(form) }}
+            {% else %}
+                <p class="card-text">{{ presentation.descriptionPresentation }}</p>
+            {% endif %}
+
         </div>
     </div>
 </div>
-</div>
-{% endfor %}
 {% endblock %}
