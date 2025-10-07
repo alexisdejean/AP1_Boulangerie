@@ -9,8 +9,9 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity(repositoryClass: UtilisateurRepository::class)]
-#[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_EMAIL', fields: ['email'])]
-#[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
+#[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER', fields: ['identifiant'])]
+#[UniqueEntity(fields: ['identifiant'], message: 'Cet identifiant est déjà utilisé')]
+
 class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
@@ -120,8 +121,9 @@ public function setTelephone(?string $telephone): static
      */
     public function getUserIdentifier(): string
     {
-        return (string) $this->email;
+        return (string) $this->identifiant; // <-- Utiliser identifiant pour l'authentification
     }
+
 
     /**
      * @see UserInterface

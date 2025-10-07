@@ -10,7 +10,7 @@
 
 
 
-    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+    <h1 class="h3 mb-3 font-weight-normal">Connexion</h1>
     <label for="inputEmail">Identifiant</label>
     <input type="text" value="{{ last_username }}" name="identifiant" id="inputidentifiant" class="form-control" required autofocus>
     <label for="inputPassword">Password</label>
@@ -21,4 +21,5 @@
         Sign in
     </button>
 </form>
+<a href="{{ path('app_register') }}">Pas encore de compte ? Inscrivez-vous</a>
 {% endblock %}
