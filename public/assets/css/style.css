@@ -66,7 +66,7 @@ background-color: white;}
     ". . . Zone-connexion Zone-connexion Zone-connexion Zone-connexion . . ."
     ". . . Zone-connexion Zone-connexion Zone-connexion Zone-connexion . . ."
     ". . . Zone-connexion Zone-connexion Zone-connexion Zone-connexion . . ."
-    ". . . . . . . . . ."
+    ". . . . inscription inscription . . . ."
     ". . . . . . . . . .";
 }
 
@@ -107,6 +107,11 @@ background-color:#e95420; justify-self: center;}
 
 .titre-connexion { grid-area: titre-connexion; 
 justify-self: center;}
+.inscription {
+    grid-area: inscription;
+    justify-self: center;
+}
+
 
 
 /* grid pour la page d'inscription */
