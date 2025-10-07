@@ -12,7 +12,6 @@ VS Code
 symfony composer install  
 Composer require make  
 Composer require twig  
-symfony server:start  
-php bin/console make:controller  
+symfony server:start
 ouvrir à l'adresse fournie  
 naviguer  
