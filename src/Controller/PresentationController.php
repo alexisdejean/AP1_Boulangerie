@@ -2,6 +2,10 @@
 
 namespace App\Controller;
 
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Validator\Constraints\File;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
+
 use App\Repository\PresentationRepository;
 use App\Entity\Presentation;
 use Doctrine\ORM\EntityManagerInterface;
@@ -23,11 +27,25 @@ final class PresentationController extends AbstractController
         $form = null;
 
         if ($this->isGranted('ROLE_ADMIN') && $presentation) {
-            // Créer le formulaire inline
             $form = $this->createFormBuilder($presentation)
                 ->add('descriptionPresentation', TextareaType::class, [
                     'label' => false,
                     'attr' => ['rows' => 5],
+                ])
+                ->add('imageFile', FileType::class, [
+                    'label' => 'Image de présentation',
+                    'mapped' => false,
+                    'required' => false,
+                    'constraints' => [
+                        new File([
+                            'maxSize' => '2M',
+                            'mimeTypes' => [
+                                'image/jpeg',
+                                'image/png',
+                            ],
+                            'mimeTypesMessage' => 'Veuillez uploader un fichier JPEG ou PNG valide',
+                        ])
+                    ],
                 ])
                 ->add('save', SubmitType::class, ['label' => 'Enregistrer'])
                 ->getForm();
@@ -35,6 +53,22 @@ final class PresentationController extends AbstractController
             $form->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid()) {
+                $imageFile = $form->get('imageFile')->getData();
+
+                if ($imageFile) {
+                    $newFilename = uniqid() . '.' . $imageFile->guessExtension();
+                    try {
+                        $imageFile->move(
+                            $this->getParameter('image_stockage'), // dossier physique
+                            $newFilename
+                        );
+                    } catch (FileException $e) {
+                        $this->addFlash('error', 'Erreur lors de l’upload de l’image');
+                    }
+                    // chemin relatif pour Twig / base de données
+                    $presentation->setImagePresentation('assets/img/' . $newFilename);
+                }
+
                 $em->flush();
                 return $this->redirectToRoute('app_presentation');
             }
