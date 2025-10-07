@@ -6,51 +6,47 @@ use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
-class User
+class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
 
+    // Email comme identifiant pour l’authentification
+    #[ORM\Column(length: 180, unique: true)]
+    private ?string $email = null;
+
+    #[ORM\Column(type: 'json')]
+    private array $roles = [];
+
     #[ORM\Column(length: 255)]
+    private ?string $password = null; // mot de passe hashé
+
+    // ---- tes anciens champs ----
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $nom_user = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $prenom_user = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $numero_user = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $mail_user = null;
-
-    #[ORM\Column(length: 255)]
-    private ?string $identifiant_user = null;
-
-    #[ORM\Column(length: 255)]
-    private ?string $mdp_user = null;
-
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $type_user = null;
 
-    /**
-     * @var Collection<int, Contact>
-     */
+    // ---- relations ----
     #[ORM\OneToMany(targetEntity: Contact::class, mappedBy: 'user_contact')]
     private Collection $contacts;
 
-    /**
-     * @var Collection<int, Prestation>
-     */
     #[ORM\OneToMany(targetEntity: Prestation::class, mappedBy: 'user_prestation')]
     private Collection $prestations;
 
-    /**
-     * @var Collection<int, Presentation>
-     */
     #[ORM\OneToMany(targetEntity: Presentation::class, mappedBy: 'user_presentation')]
     private Collection $presentations;
 
@@ -61,182 +57,133 @@ class User
         $this->presentations = new ArrayCollection();
     }
 
+    // --------- Méthodes obligatoires pour Symfony Security ---------
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getNomUser(): ?string
+    public function getUserIdentifier(): string
     {
-        return $this->nom_user;
+        return (string) $this->email;
     }
 
-    public function setNomUser(string $nom_user): static
+    public function getEmail(): ?string
     {
-        $this->nom_user = $nom_user;
+        return $this->email;
+    }
 
+    public function setEmail(string $email): static
+    {
+=======
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(string $email): static
+    {
+>>>>>>> feature
+        $this->email = $email;
         return $this;
     }
 
-    public function getPrenomUser(): ?string
+    public function getRoles(): array
     {
-        return $this->prenom_user;
+        $roles = $this->roles;
+        $roles[] = 'ROLE_USER'; // rôle par défaut
+        return array_unique($roles);
     }
 
-    public function setPrenomUser(string $prenom_user): static
+    public function setRoles(array $roles): static
     {
-        $this->prenom_user = $prenom_user;
-
+>>>>>>> feature
+        $this->roles = $roles;
         return $this;
     }
 
-    public function getNumeroUser(): ?string
+    public function getPassword(): string
     {
-        return $this->numero_user;
+        return $this->password;
     }
 
-    public function setNumeroUser(string $numero_user): static
+    public function setPassword(string $password): static
     {
-        $this->numero_user = $numero_user;
-
+        $this->password = $password;
         return $this;
     }
 
-    public function getMailUser(): ?string
+    public function eraseCredentials(): void
     {
-        return $this->mail_user;
+<<<<<<< HEAD
+        // si tu stockes un mot de passe en clair temporaire, tu peux l'effacer ici
+=======
+        // Si tu stockes un mot de passe en clair temporairement, efface-le ici
+>>>>>>> feature
     }
 
-    public function setMailUser(string $mail_user): static
-    {
-        $this->mail_user = $mail_user;
+    // --------- Getters / Setters pour tes champs -----
+    public function getNomUser(): ?string { return $this->nom_user; }
+    public function setNomUser(?string $nom_user): static { $this->nom_user = $nom_user; return $this; }
 
-        return $this;
-    }
+    public function getPrenomUser(): ?string { return $this->prenom_user; }
+    public function setPrenomUser(?string $prenom_user): static { $this->prenom_user = $prenom_user; return $this; }
 
-    public function getIdentifiantUser(): ?string
-    {
-        return $this->identifiant_user;
-    }
+    public function getNumeroUser(): ?string { return $this->numero_user; }
+    public function setNumeroUser(?string $numero_user): static { $this->numero_user = $numero_user; return $this; }
 
-    public function setIdentifiantUser(string $identifiant_user): static
-    {
-        $this->identifiant_user = $identifiant_user;
+    public function getTypeUser(): ?string { return $this->type_user; }
+    public function setTypeUser(?string $type_user): static { $this->type_user = $type_user; return $this; }
 
-        return $this;
-    }
-
-    public function getMdpUser(): ?string
-    {
-        return $this->mdp_user;
-    }
-
-    public function setMdpUser(string $mdp_user): static
-    {
-        $this->mdp_user = $mdp_user;
-
-        return $this;
-    }
-
-    public function getTypeUser(): ?string
-    {
-        return $this->type_user;
-    }
-
-    public function setTypeUser(string $type_user): static
-    {
-        $this->type_user = $type_user;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Contact>
-     */
-    public function getContacts(): Collection
-    {
-        return $this->contacts;
-    }
-
-    public function addContact(Contact $contact): static
-    {
+    // --------- Relations -----
+    public function getContacts(): Collection { return $this->contacts; }
+    public function addContact(Contact $contact): static {
         if (!$this->contacts->contains($contact)) {
             $this->contacts->add($contact);
             $contact->setUserContact($this);
         }
-
         return $this;
     }
-
-    public function removeContact(Contact $contact): static
-    {
+    public function removeContact(Contact $contact): static {
         if ($this->contacts->removeElement($contact)) {
-            // set the owning side to null (unless already changed)
             if ($contact->getUserContact() === $this) {
                 $contact->setUserContact(null);
             }
         }
-
         return $this;
     }
 
-    /**
-     * @return Collection<int, Prestation>
-     */
-    public function getPrestations(): Collection
-    {
-        return $this->prestations;
-    }
-
-    public function addPrestation(Prestation $prestation): static
-    {
+    public function getPrestations(): Collection { return $this->prestations; }
+    public function addPrestation(Prestation $prestation): static {
         if (!$this->prestations->contains($prestation)) {
             $this->prestations->add($prestation);
             $prestation->setUserPrestation($this);
         }
-
         return $this;
     }
-
-    public function removePrestation(Prestation $prestation): static
-    {
+    public function removePrestation(Prestation $prestation): static {
         if ($this->prestations->removeElement($prestation)) {
-            // set the owning side to null (unless already changed)
             if ($prestation->getUserPrestation() === $this) {
                 $prestation->setUserPrestation(null);
             }
         }
-
         return $this;
     }
 
-    /**
-     * @return Collection<int, Presentation>
-     */
-    public function getPresentations(): Collection
-    {
-        return $this->presentations;
-    }
-
-    public function addPresentation(Presentation $presentation): static
-    {
+    public function getPresentations(): Collection { return $this->presentations; }
+    public function addPresentation(Presentation $presentation): static {
         if (!$this->presentations->contains($presentation)) {
             $this->presentations->add($presentation);
             $presentation->setUserPresentation($this);
         }
-
         return $this;
     }
-
-    public function removePresentation(Presentation $presentation): static
-    {
+    public function removePresentation(Presentation $presentation): static {
         if ($this->presentations->removeElement($presentation)) {
-            // set the owning side to null (unless already changed)
             if ($presentation->getUserPresentation() === $this) {
                 $presentation->setUserPresentation(null);
             }
         }
-
         return $this;
     }
 }
