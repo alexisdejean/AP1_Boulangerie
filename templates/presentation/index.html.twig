@@ -3,18 +3,20 @@
 {% block title %}Présentation{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
-{% for unpresentation in lesPresentation %}
-    <div class="example-wrapper">
-        <div class="card text-white bg-primary mb-3">
-            <div class="card-body">
-                <p class="card-text">{{ unpresentation.descriptionPresentation }}</p>
-            </div>
+<div class="example-wrapper">
+    <div class="card text-white bg-primary mb-3">
+        <div class="card-body">
+
+            {% if is_granted('ROLE_ADMIN') and form %}
+                {{ form_start(form) }}
+                    {{ form_widget(form.descriptionPresentation) }}
+                    {{ form_widget(form.save, {'attr': {'class': 'btn btn-warning mt-2'}}) }}
+                {{ form_end(form) }}
+            {% else %}
+                <p class="card-text">{{ presentation.descriptionPresentation }}</p>
+            {% endif %}
+
         </div>
     </div>
-{% endfor %}
-
+</div>
 {% endblock %}
