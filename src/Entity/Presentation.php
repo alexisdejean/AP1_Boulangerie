@@ -22,7 +22,7 @@ class Presentation
 
     #[ORM\ManyToOne(inversedBy: 'presentations')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?user $user_presentation = null;
+    private ?Utilisateur $Utilisateur_presentation = null;
 
     public function getId(): ?int
     {
@@ -53,14 +53,14 @@ class Presentation
         return $this;
     }
 
-    public function getUserPresentation(): ?user
+    public function getUtilisateurPresentation(): ?Utilisateur
     {
-        return $this->user_presentation;
+        return $this->Utilisateur_presentation;
     }
 
-    public function setUserPresentation(?user $user_presentation): static
+    public function setUtilisateurPresentation(?Utilisateur $Utilisateur_presentation): static
     {
-        $this->user_presentation = $user_presentation;
+        $this->Utilisateur_presentation = $Utilisateur_presentation;
 
         return $this;
     }

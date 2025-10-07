@@ -4,28 +4,6 @@ card, #card-contact{
 
 }
 .submit{
-    margin-top: 10px !important;
+    margin-top: 10% !important;
 }
-
-.container {  
-  display: grid;
-  grid-template-columns: repeat(10, 1fr);
-  grid-template-rows: repeat(10, 1fr);
-  gap: 0px 0px;
-  grid-auto-flow: row;
-  grid-template-areas:
-    ". . . . . . . . . ."
-    ". . . . . . . . . ."
-    ". . grid-middle grid-middle grid-middle grid-middle grid-middle grid-middle . ."
-    ". . grid-middle grid-middle grid-middle grid-middle grid-middle grid-middle . ."
-    ". . grid-middle grid-middle grid-middle grid-middle grid-middle grid-middle . ."
-    ". . grid-middle grid-middle grid-middle grid-middle grid-middle grid-middle . ."
-    ". . grid-middle grid-middle grid-middle grid-middle grid-middle grid-middle . ."
-    ". . grid-middle grid-middle grid-middle grid-middle grid-middle grid-middle . ."
-    ". . . . . . . . . ."
-    ". . . . . . . . . .";
-}
-
-.grid-middle { grid-area: grid-middle; 
-text-align: center;
-}
+    margin: auto !important;

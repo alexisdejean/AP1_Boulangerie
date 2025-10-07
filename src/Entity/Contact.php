@@ -25,7 +25,7 @@ class Contact
 
     #[ORM\ManyToOne(inversedBy: 'contacts')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?user $user_contact = null;
+    private ?Utilisateur $Utilisateur_contact = null;
 
     public function getId(): ?int
     {
@@ -68,14 +68,14 @@ class Contact
         return $this;
     }
 
-    public function getUserContact(): ?user
+    public function getUtilisateurContact(): ?Utilisateur
     {
-        return $this->user_contact;
+        return $this->Utilisateur_contact;
     }
 
-    public function setUserContact(?user $user_contact): static
+    public function setUtilisateurContact(?Utilisateur $Utilisateur_contact): static
     {
-        $this->user_contact = $user_contact;
+        $this->Utilisateur_contact = $Utilisateur_contact;
 
         return $this;
     }
