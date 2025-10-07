@@ -19,7 +19,7 @@ card, #card-contact{
 
 
 
-
+/* grid pour la page prestation */
 .prestation {  display: grid;
     background-color: #e95420;
   grid-template-columns: repeat(10, 1fr);
@@ -49,3 +49,106 @@ background-color: white;}
 background-color: white;}
 
 .text-image-2 { grid-area: text-image-2; color: white;}
+
+
+/* grid pour la page connexion */
+.connexion {  display: grid;
+  grid-template-columns: repeat(6, 1fr) 0.9fr 1.1fr repeat(2, 1fr);
+  grid-template-rows: repeat(10, 1fr);
+  gap: 0px 0px;
+  grid-auto-flow: row;
+  grid-template-areas:
+    ". . . . . . . . . ."
+    ". . . . . . . . . ."
+    ". . . Zone-connexion Zone-connexion Zone-connexion Zone-connexion . . ."
+    ". . . Zone-connexion Zone-connexion Zone-connexion Zone-connexion . . ."
+    ". . . Zone-connexion Zone-connexion Zone-connexion Zone-connexion . . ."
+    ". . . Zone-connexion Zone-connexion Zone-connexion Zone-connexion . . ."
+    ". . . Zone-connexion Zone-connexion Zone-connexion Zone-connexion . . ."
+    ". . . Zone-connexion Zone-connexion Zone-connexion Zone-connexion . . ."
+    ". . . . inscription inscription . . . ."
+    ". . . . . . . . . .";
+}
+
+.zone-connexion {  display: grid;
+  grid-template-columns: 0.5fr 1.5fr 1.6fr 0.4fr;
+  grid-template-rows: 0.5fr 1.5fr repeat(2, 1fr) 1.5fr 0.5fr;
+  gap: 0px 0px;
+  grid-auto-flow: row;
+  grid-template-areas:
+    ". titre-connexion titre-connexion ."
+    ". millieu-connexion millieu-connexion ."
+    ". millieu-connexion millieu-connexion ."
+    ". millieu-connexion millieu-connexion ."
+    ". millieu-connexion millieu-connexion ."
+    ". bouton-connexion bouton-connexion .";
+  grid-area: Zone-connexion;
+  background-color: #e95420;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.millieu-connexion {  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 0.8 1.2 0.8 1.2;
+  gap: 7px 0px;
+  grid-auto-flow: row;
+  grid-template-areas:
+    "."
+    "."
+    "."
+    ".";
+  grid-area: millieu-connexion;
+  justify-items:center;
+}
+
+.bouton-connexion { grid-area: bouton-connexion;
+background-color:#e95420; justify-self: center;}
+
+.titre-connexion { grid-area: titre-connexion; 
+justify-self: center;}
+.inscription {
+    grid-area: inscription;
+    justify-self: center;
+}
+
+
+
+/* grid pour la page d'inscription */
+.register {  display: grid;
+  grid-template-columns: repeat(6, 1fr) 0.9fr 1.1fr repeat(2, 1fr);
+  grid-template-rows: repeat(10, 1fr);
+  gap: 0px 0px;
+  grid-auto-flow: row;
+  grid-template-areas:
+    ". . . . . . . . . ."
+    ". . . . . . . . . ."
+    ". . . zone-register zone-register zone-register zone-register . . ."
+    ". . . zone-register zone-register zone-register zone-register . . ."
+    ". . . zone-register zone-register zone-register zone-register . . ."
+    ". . . zone-register zone-register zone-register zone-register . . ."
+    ". . . zone-register zone-register zone-register zone-register . . ."
+    ". . . zone-register zone-register zone-register zone-register . . ."
+    ". . . . . . . . . ."
+    ". . . . . . . . . .";
+}
+
+.zone-register {  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 0.2fr 2.3fr 0.5fr;
+  gap: 0px 0px;
+  grid-auto-flow: row;
+  grid-template-areas:
+    "titre-register"
+    "."
+    "bouton-register";
+  grid-area: zone-register;
+  background-color: #e95420;
+  border-radius: 10px;
+  justify-items: center;
+}
+
+.titre-register { grid-area: titre-register; }
+
+.bouton-register { grid-area: bouton-register; justify-self: center;
+background-color:#d1410c;}

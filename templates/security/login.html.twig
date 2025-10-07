@@ -11,18 +11,27 @@
     {% endif %}
 
 
-
-
+    <div class="connexion">
+    <div class="zone-connexion">
+    <div class="titre-connexion">
     <h1 class="h3 mb-3 font-weight-normal">Connexion</h1>
+    </div>
+    <div class="millieu-connexion">
     <label for="inputEmail">Identifiant</label>
     <input type="text" name="identifiant" id="inputidentifiant" class="form-control" required autofocus>
     <label for="inputPassword">Password</label>
     <input type="password" name="password" id="inputPassword" class="form-control" required>
+    </div>
     <input type="hidden" name="_csrf_token" data-controller="csrf-protection" value="{{ csrf_token('authenticate') }}">
-
+    <div class="bouton-connexion">
     <button class="btn btn-lg btn-primary" type="submit">
         Sign in
     </button>
+    </div>  
+    </div>
+    </div>
 </form>
+<div class="inscription">
 <a href="{{ path('app_register') }}">Pas encore de compte ? Inscrivez-vous</a>
+</div>
 {% endblock %}
