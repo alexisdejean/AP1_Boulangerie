@@ -17,8 +17,9 @@
 
             {% if is_granted('ROLE_ADMIN') and form %}
                 {{ form_start(form) }}
-                    {{ form_widget(form.descriptionPresentation) }}
                     {{ form_widget(form.imageFile, {'attr': {'class': 'mt-2'}}) }}
+                    {{ form_widget(form.descriptionPresentation) }}
+
                     {{ form_widget(form.save, {'attr': {'class': 'btn btn-warning mt-2'}}) }}
                 {{ form_end(form) }}
             {% else %}

@@ -19,7 +19,7 @@
         <tbody>
             {% for contact in contacts %}
                 <tr>
-                    <td>{{ contact.utilisateurContact.nom }}</td>
+                    <td>{{ contact.utilisateurContact.identifiant }}</td>
                     <td>{{ contact.numeroContact }}</td>
                     <td>{{ contact.demandeContact }}</td>
                     <td>{{ contact.dateContact ? contact.dateContact|date('d/m/Y H:i') : '' }}</td>
