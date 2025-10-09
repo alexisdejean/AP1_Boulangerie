@@ -21,6 +21,7 @@ card, #card-contact{
 
 /* grid pour la page prestation */
 .prestation {  display: grid;
+    text-align: center;
     background-color: #e95420;
   grid-template-columns: repeat(10, 1fr);
   grid-template-rows: repeat(10, 1fr);
