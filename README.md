@@ -4,23 +4,25 @@ Un projet scolaire permettant de mettre à disposition un site Web dynamique à 
 Le projet permet de recueillir des avis, des contacts, de présenter la boulangerie et ses prestations.  
 Un espace membre est inclu avec des sessions pour séparer utilisateurs lambdas de l'administrateur.  
 
+## Installation
 
-ouvrir à l'adresse fournie  
-naviguer  
-
-## Prérequis
 Symfony PHP  
 CMD
 
-## Installation
-
-Symfony composer install  
+symfony composer install  
 Composer require make  
 Composer require twig  
-Composer require symfony/maker-bundle --dev  
-Composer require symfonycasts/verify-email-bundle  
-Composer require symfony/assets  
-Symfony server:start  
+composer require symfony/maker-bundle --dev  
+composer require symfonycasts/verify-email-bundle 
+composer require symfony/assets 
+symfony server:start  
+
+
+Ouvrir à l'adresse fournie  
+Naviguer dans le site Web  
+Se connecter ou s'inscrire  
+
+
 
 ## Identifiants :
 
