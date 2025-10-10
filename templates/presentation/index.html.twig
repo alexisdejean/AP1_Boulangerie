@@ -3,27 +3,54 @@
 {% block title %}Présentation{% endblock %}
 
 {% block body %}
-<div class="example-wrapper">
+<div class="container my-4">
     <div class="card text-white bg-primary mb-3">
-        <div class="card-body">
+        <div class="card-body text-center">
 
-            {# Affichage de l'image si elle existe #}
+            {# Image actuelle #}
             {% if presentation.imagePresentation %}
-                <img src="/{{ presentation.imagePresentation }}" 
-                     alt="Image de présentation" 
-                     class="img-fluid mb-3" 
-                     style="max-height: 300px; object-fit: cover;">
+                <img src="/{{ presentation.imagePresentation }}?{{ random() }}"
+                     alt="Image de présentation"
+                     class="img-fluid mb-3 rounded shadow"
+                     style="max-height: 300px; object-fit: cover; background: white;">
+            {% else %}
+                <p class="text-light">Aucune image pour le moment</p>
             {% endif %}
 
-            {% if is_granted('ROLE_ADMIN') and form %}
-                {{ form_start(form) }}
-                    {{ form_widget(form.imageFile, {'attr': {'class': 'mt-2'}}) }}
-                    {{ form_widget(form.descriptionPresentation) }}
+            {# Flash messages #}
+            {% for message in app.flashes('success') %}
+                <div class="alert alert-success">{{ message }}</div>
+            {% endfor %}
+            {% for message in app.flashes('error') %}
+                <div class="alert alert-danger">{{ message }}</div>
+            {% endfor %}
 
-                    {{ form_widget(form.save, {'attr': {'class': 'btn btn-warning mt-2'}}) }}
+            {# Formulaire admin #}
+            {% if is_granted('ROLE_ADMIN') %}
+                {{ form_start(form, {'attr': {'enctype': 'multipart/form-data'}}) }}
+
+                    <div class="mb-3">
+                        <label class="form-label text-light">Description</label>
+                        {{ form_widget(form.description_presentation) }}
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label text-light">Nouvelle image</label>
+                        {{ form_widget(form.imageFile) }}
+                    </div>
+
+                    <div class="d-grid">
+                        {{ form_widget(form.save) }}
+                    </div>
+
                 {{ form_end(form) }}
             {% else %}
-                <p class="card-text">{{ presentation.descriptionPresentation }}</p>
+                {# Description pour visiteurs #}
+                {% if presentation.descriptionPresentation %}
+                    <p class="card-text mt-3">{{ presentation.descriptionPresentation }}</p>
+                {% else %}
+                    <p class="text-light">Aucune description disponible.</p>
+                {% endif %}
             {% endif %}
 
         </div>
