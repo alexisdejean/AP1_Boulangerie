@@ -7,11 +7,11 @@
     <div class="card text-white bg-primary mb-3">
         <div class="card-body text-center">
 
-            {# Image actuelle #}
+            {# Image de présentation #}
             {% if presentation.imagePresentation %}
-                <img src="/{{ presentation.imagePresentation }}?{{ random() }}"
-                     alt="Image de présentation"
-                     class="img-fluid mb-3 rounded shadow"
+                <img src="/{{ presentation.imagePresentation }}?{{ random() }}" 
+                     alt="Image de présentation" 
+                     class="img-fluid mb-3 rounded shadow" 
                      style="max-height: 300px; object-fit: cover; background: white;">
             {% else %}
                 <p class="text-light">Aucune image pour le moment</p>
@@ -25,27 +25,21 @@
                 <div class="alert alert-danger">{{ message }}</div>
             {% endfor %}
 
-            {# Formulaire admin #}
+            {# Formulaire admin stylisé #}
             {% if is_granted('ROLE_ADMIN') %}
-                {{ form_start(form, {'attr': {'enctype': 'multipart/form-data'}}) }}
+                <div class="form-prestation">
+                    <h2>Modifier la présentation</h2>
+                    {{ form_start(form, {'attr': {'enctype': 'multipart/form-data'}}) }}
 
-                    <div class="mb-3">
-                        <label class="form-label text-light">Description</label>
-                        {{ form_widget(form.description_presentation) }}
-                    </div>
+                        {{ form_widget(form.description_presentation, {'attr': {'placeholder': 'Description de la présentation'}}) }}
 
-                    <div class="mb-3">
-                        <label class="form-label text-light">Nouvelle image</label>
                         {{ form_widget(form.imageFile) }}
-                    </div>
 
-                    <div class="d-grid">
-                        {{ form_widget(form.save) }}
-                    </div>
+                        {{ form_widget(form.save, {'attr': {'class': 'btn btn-primary'}}) }}
 
-                {{ form_end(form) }}
+                    {{ form_end(form) }}
+                </div>
             {% else %}
-                {# Description pour visiteurs #}
                 {% if presentation.descriptionPresentation %}
                     <p class="card-text mt-3">{{ presentation.descriptionPresentation }}</p>
                 {% else %}
@@ -57,4 +51,3 @@
     </div>
 </div>
 {% endblock %}
-gi

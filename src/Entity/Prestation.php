@@ -14,10 +14,12 @@ class Prestation
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(type: Types::TEXT)]
+    // ✅ On rend ce champ nullable
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $article = null;
 
-    #[ORM\Column(type: Types::TEXT)]
+    // ✅ Celui-ci aussi
+    #[ORM\Column(type: Types::STRING, length: 255, nullable: true)]
     private ?string $image = null;
 
     #[ORM\ManyToOne(inversedBy: 'prestations')]
@@ -34,10 +36,9 @@ class Prestation
         return $this->article;
     }
 
-    public function setArticle(string $article): static
+    public function setArticle(?string $article): static
     {
         $this->article = $article;
-
         return $this;
     }
 
@@ -46,10 +47,9 @@ class Prestation
         return $this->image;
     }
 
-    public function setImage(string $image): static
+    public function setImage(?string $image): static
     {
         $this->image = $image;
-
         return $this;
     }
 
@@ -61,7 +61,6 @@ class Prestation
     public function setUtilisateurPrestation(?Utilisateur $Utilisateur_prestation): static
     {
         $this->Utilisateur_prestation = $Utilisateur_prestation;
-
         return $this;
     }
 }
