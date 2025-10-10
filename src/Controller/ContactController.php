@@ -33,10 +33,6 @@ public function index(Request $request, EntityManagerInterface $em): Response
 
         // Récupérer l'utilisateur connecté
         $currentUser = $this->getUser();
-        if (!$currentUser) {
-            $this->addFlash('error', 'Utilisateur introuvable.');
-            return $this->redirectToRoute('app_contact');
-        }
 
         // Vérifier si le numéro appartient à un autre utilisateur
         $existingUser = $em->getRepository(Utilisateur::class)->findOneBy(['telephone' => $numero]);
@@ -45,11 +41,6 @@ public function index(Request $request, EntityManagerInterface $em): Response
             return $this->redirectToRoute('app_contact');
         }
 
-        // Vérifier si l'utilisateur essaie de changer de numéro
-        if ($currentUser->getTelephone() && $currentUser->getTelephone() !== $numero) {
-            $this->addFlash('error', 'Vous ne pouvez pas changer de numéro. Votre numéro actuel est : ' . $currentUser->getTelephone());
-            return $this->redirectToRoute('app_contact');
-        }
 
         // Si l'utilisateur n'a pas encore de numéro, on l'enregistre
         if (!$currentUser->getTelephone()) {

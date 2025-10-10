@@ -23,23 +23,29 @@
 
     <h1>Contact</h1>
     <form action="{{ path('app_contact') }}" method="POST">
-        <div class="card text-white bg-primary mb-3" id="carte-contact" style="max-width: 20rem;">
-            <div class="card-header">
-                {# Préremplissage du numéro et champ readonly si déjà défini #}
-                <input type="text" class="form-control" name="numero" 
-                       placeholder="Numéro de téléphone" 
-                       value="{{ app.user.telephone ?: '' }}"
-                       {% if app.user.telephone %}readonly{% endif %}>
-            </div>
-            <div class="card-body">
-                <textarea class="form-control" name="commentaire" rows="3" placeholder="Commentaire"></textarea>
-                {% if app.user %}
-                    <input type="submit" class="btn btn-light mt-2" value="Envoyer">
-                {% else %}
-                    <p class="text-warning mt-2">Vous devez être connecté pour envoyer un message.</p>
-                {% endif %}
-            </div>
-        </div>
+ <div class="card text-white bg-primary mb-3" id="carte-contact" style="max-width: 20rem;">
+    <div class="card-header">
+        {# Préremplissage du numéro et champ readonly si déjà défini #}
+        <input type="text"
+               class="form-control"
+               name="numero"
+               placeholder="Numéro de téléphone"
+               value="{{ app.user ? app.user.telephone : '' }}"
+               {% if app.user and app.user.telephone %}readonly{% endif %}>
+    </div>
+
+    <div class="card-body">
+        <textarea class="form-control" name="commentaire" rows="3" placeholder="Commentaire"></textarea>
+
+        {% if app.user %}
+            <button type="submit" class="btn btn-light mt-2">Envoyer</button>
+        {% else %}
+            <p class="text-warning mt-2">Connectez-vous pour envoyer un message.</p>
+        {% endif %}
+    </div>
+</div>
+
+
     </form>
 </div>
 {% endblock %}

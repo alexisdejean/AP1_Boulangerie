@@ -17,17 +17,15 @@ use Symfony\Component\Validator\Constraints\File;
 class PresentationController extends AbstractController
 {
     #[Route('/presentation', name: 'app_presentation')]
-    public function index(
-        PresentationRepository $presentationRepo,
-        Request $request,
-        EntityManagerInterface $em
-    ): Response
+    public function index(PresentationRepository $presentationRepo, Request $request, EntityManagerInterface $em): Response
     {
+        // Récupération de la présentation (on prend la première trouvée)
         $presentation = $presentationRepo->findOneBy([]);
         if (!$presentation) {
             throw $this->createNotFoundException('Aucune présentation trouvée.');
         }
 
+        // Création du formulaire
         $form = $this->createFormBuilder($presentation)
             ->add('description_presentation', TextareaType::class, [
                 'label' => false,
@@ -56,41 +54,37 @@ class PresentationController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
-            // --- Mettre à jour la description ---
-            $presentation->setDescriptionPresentation(
-                $form->get('description_presentation')->getData()
-            );
+            // --- Mise à jour de la description ---
+            $presentation->setDescriptionPresentation($form->get('description_presentation')->getData());
 
             // --- Gestion de l'image si un fichier est uploadé ---
             $imageFile = $form->get('imageFile')->getData();
             if ($imageFile) {
-                // Supprime ancienne image si elle existe
+                // Supprimer l'ancienne image si elle existe
                 if ($presentation->getImagePresentation()) {
                     $oldPath = $this->getParameter('kernel.project_dir') . '/public/' . ltrim($presentation->getImagePresentation(), '/');
                     if (file_exists($oldPath)) unlink($oldPath);
                 }
 
-                // Déplace le fichier uploadé
+                // Déplacer le fichier uploadé
                 $newFilename = uniqid() . '.' . $imageFile->guessExtension();
                 $imageFile->move($this->getParameter('image_stockage'), $newFilename);
 
-                // Met à jour la propriété image
+                // Mettre à jour la propriété image
                 $presentation->setImagePresentation('assets/img/' . $newFilename);
             }
 
-            // --- Persiste et flush BDD ---
-            $em->persist($presentation);
-            $em->flush();
+            // --- Persister et flush en BDD ---
             $em->persist($presentation);
             $em->flush();
 
-            // --- Flash message ---
+            // Flash message
             $this->addFlash('success', 'Présentation mise à jour avec succès.');
 
             return $this->redirectToRoute('app_presentation');
         }
 
+        // Rendu du template
         return $this->render('presentation/index.html.twig', [
             'presentation' => $presentation,
             'form' => $form->createView(),
