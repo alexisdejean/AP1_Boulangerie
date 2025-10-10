@@ -27,11 +27,11 @@ naviguer
 
 Utilisateur lambda :
 
-Nom d'utilisateur : User_Test_1
+Nom d'utilisateur : User_Test_1  
 Mot de passe :123456
 
 Administrateur : 
 
-Nom d'utilisateur : Admin
+Nom d'utilisateur : Admin  
 Mot de passe : admin123
 
