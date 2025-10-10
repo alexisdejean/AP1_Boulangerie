@@ -12,10 +12,10 @@ CMD
 symfony composer install  
 Composer require make  
 Composer require twig  
-composer require symfony/maker-bundle --dev  
-composer require symfonycasts/verify-email-bundle 
-composer require symfony/assets 
-symfony server:start  
+Composer require symfony/maker-bundle --dev  
+Composer require symfonycasts/verify-email-bundle  
+Composer require symfony/assets   
+Symfony server:start  
 
 
 Ouvrir à l'adresse fournie  
