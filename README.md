@@ -1,19 +1,37 @@
 # AP1_Boulangerie
 
 Un projet scolaire permettant de mettre à disposition un site Web dynamique à une boulangerie.  
-Le projet permet de recueillir des avis, des contacts, de présenter laboulangerie et ses prestations.  
+Le projet permet de recueillir des avis, des contacts, de présenter la boulangerie et ses prestations.  
 Un espace membre est inclu avec des sessions pour séparer utilisateurs lambdas de l'administrateur.  
 
 ## Installation
 
 Symfony PHP  
-VS Code
+CMD
 
 symfony composer install  
 Composer require make  
 Composer require twig  
 composer require symfony/maker-bundle --dev  
-composer require symfonycasts/verify-email-bundle  
+composer require symfonycasts/verify-email-bundle 
+composer require symfony/assets 
 symfony server:start  
+
+
 ouvrir à l'adresse fournie  
 naviguer  
+
+
+
+## Identifiants :
+
+Utilisateur lambda :
+
+Nom d'utilisateur : User_Test_1
+Mot de passe :123456
+
+Administrateur : 
+
+Nom d'utilisateur : Admin
+Mot de passe : admin123
+
