@@ -2,82 +2,98 @@
 
 namespace App\Controller;
 
-use Symfony\Component\Form\Extension\Core\Type\FileType;
-use Symfony\Component\Validator\Constraints\File;
-use Symfony\Component\HttpFoundation\File\Exception\FileException;
-
-use App\Repository\PresentationRepository;
 use App\Entity\Presentation;
+use App\Repository\PresentationRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Validator\Constraints\File;
 
-final class PresentationController extends AbstractController
+class PresentationController extends AbstractController
 {
     #[Route('/presentation', name: 'app_presentation')]
-    public function index(PresentationRepository $presentationRepo, Request $request, EntityManagerInterface $em): Response
+    public function index(
+        PresentationRepository $presentationRepo,
+        Request $request,
+        EntityManagerInterface $em
+    ): Response
     {
-        // Récupérer la seule présentation
         $presentation = $presentationRepo->findOneBy([]);
+        if (!$presentation) {
+            throw $this->createNotFoundException('Aucune présentation trouvée.');
+        }
 
-        $form = null;
+        $form = $this->createFormBuilder($presentation)
+            ->add('description_presentation', TextareaType::class, [
+                'label' => false,
+                'attr' => ['rows' => 5, 'class' => 'form-control'],
+                'required' => false,
+            ])
+            ->add('imageFile', FileType::class, [
+                'label' => 'Image de présentation',
+                'mapped' => false,
+                'required' => false,
+                'constraints' => [
+                    new File([
+                        'maxSize' => '5M',
+                        'mimeTypes' => ['image/jpeg', 'image/png'],
+                        'mimeTypesMessage' => 'Veuillez uploader une image JPEG ou PNG valide.',
+                    ]),
+                ],
+                'attr' => ['class' => 'form-control mt-2'],
+            ])
+            ->add('save', SubmitType::class, [
+                'label' => 'Enregistrer',
+                'attr' => ['class' => 'btn btn-warning mt-3 fw-bold'],
+            ])
+            ->getForm();
 
-        if ($this->isGranted('ROLE_ADMIN') && $presentation) {
-            $form = $this->createFormBuilder($presentation)
-                ->add('descriptionPresentation', TextareaType::class, [
-                    'label' => false,
-                    'attr' => ['rows' => 5],
-                ])
-                ->add('imageFile', FileType::class, [
-                    'label' => 'Image de présentation',
-                    'mapped' => false,
-                    'required' => false,
-                    'constraints' => [
-                        new File([
-                            'maxSize' => '2M',
-                            'mimeTypes' => [
-                                'image/jpeg',
-                                'image/png',
-                            ],
-                            'mimeTypesMessage' => 'Veuillez uploader un fichier JPEG ou PNG valide',
-                        ])
-                    ],
-                ])
-                ->add('save', SubmitType::class, ['label' => 'Enregistrer'])
-                ->getForm();
+        $form->handleRequest($request);
 
-            $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
 
-            if ($form->isSubmitted() && $form->isValid()) {
-                $imageFile = $form->get('imageFile')->getData();
+            // --- Mettre à jour la description ---
+            $presentation->setDescriptionPresentation(
+                $form->get('description_presentation')->getData()
+            );
 
-                if ($imageFile) {
-                    $newFilename = uniqid() . '.' . $imageFile->guessExtension();
-                    try {
-                        $imageFile->move(
-                            $this->getParameter('image_stockage'), // dossier physique
-                            $newFilename
-                        );
-                    } catch (FileException $e) {
-                        $this->addFlash('error', 'Erreur lors de l’upload de l’image');
-                    }
-                    // chemin relatif pour Twig / base de données
-                    $presentation->setImagePresentation('assets/img/' . $newFilename);
+            // --- Gestion de l'image si un fichier est uploadé ---
+            $imageFile = $form->get('imageFile')->getData();
+            if ($imageFile) {
+                // Supprime ancienne image si elle existe
+                if ($presentation->getImagePresentation()) {
+                    $oldPath = $this->getParameter('kernel.project_dir') . '/public/' . ltrim($presentation->getImagePresentation(), '/');
+                    if (file_exists($oldPath)) unlink($oldPath);
                 }
 
-                $em->flush();
-                return $this->redirectToRoute('app_presentation');
+                // Déplace le fichier uploadé
+                $newFilename = uniqid() . '.' . $imageFile->guessExtension();
+                $imageFile->move($this->getParameter('image_stockage'), $newFilename);
+
+                // Met à jour la propriété image
+                $presentation->setImagePresentation('assets/img/' . $newFilename);
             }
+
+            // --- Persiste et flush BDD ---
+            $em->persist($presentation);
+            $em->flush();
+            $em->persist($presentation);
+            $em->flush();
+
+            // --- Flash message ---
+            $this->addFlash('success', 'Présentation mise à jour avec succès.');
+
+            return $this->redirectToRoute('app_presentation');
         }
 
         return $this->render('presentation/index.html.twig', [
             'presentation' => $presentation,
-            'form' => $form ? $form->createView() : null,
+            'form' => $form->createView(),
         ]);
     }
 }
-?>

@@ -46,12 +46,12 @@ class Presentation
         return $this->description_presentation;
     }
 
-    public function setDescriptionPresentation(string $description_presentation): static
+    public function setDescriptionPresentation(?string $description_presentation): static
     {
         $this->description_presentation = $description_presentation;
-
         return $this;
     }
+
 
     public function getUtilisateurPresentation(): ?Utilisateur
     {
