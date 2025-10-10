@@ -13,8 +13,8 @@ symfony composer install
 Composer require make  
 Composer require twig  
 composer require symfony/maker-bundle --dev  
-composer require symfonycasts/verify-email-bundle 
-composer require symfony/assets 
+composer require symfonycasts/verify-email-bundle  
+composer require symfony/assets  
 symfony server:start  
 
 
