@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des avis{% endblock %}
+
+{% block body %}
+<div class="container my-4">
+    <h1>Liste des avis</h1>
+
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-success">{{ message }}</div>
+    {% endfor %}
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Utilisateur</th>
+                <th>Note</th>
+                <th>Commentaire</th>
+                <th>Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for avis in avisList %}
+                <tr>
+                    <td>
+                        {{ avis.idUtilisateurAvis ? avis.idUtilisateurAvis.identifiant : 'Inconnu' }}
+                    </td>
+                    <td>{{ avis.noteAvis }}/5</td>
+                    <td>{{ avis.commentaireAvis }}</td>
+                    <td>{{ avis.dateAvis ? avis.dateAvis|date('d/m/Y H:i') : '' }}</td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="4">Aucun avis trouvé.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

@@ -24,7 +24,7 @@ class Avis
     private ?\DateTime $date_avis = null;
 
     #[ORM\ManyToOne]
-    private ?user $user_avis = null;
+    private ?Utilisateur $Utilisateur_avis = null;
 
     public function getId(): ?int
     {
@@ -68,14 +68,14 @@ class Avis
         return $this;
     }
 
-    public function getIdUserAvis(): ?user
+    public function getIdUtilisateurAvis(): ?Utilisateur
     {
-        return $this->user_avis;
+        return $this->Utilisateur_avis;
     }
 
-    public function setIdUserAvis(?user $id_user_avis): static
+    public function setIdUtilisateurAvis(?Utilisateur $id_Utilisateur_avis): static
     {
-        $this->user_avis = $id_user_avis;
+        $this->Utilisateur_avis = $id_Utilisateur_avis;
 
         return $this;
     }

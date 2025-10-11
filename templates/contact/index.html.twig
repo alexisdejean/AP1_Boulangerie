@@ -6,19 +6,46 @@
 <style>
     .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
     .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+    .flash-message { margin-bottom: 1rem; }
 </style>
 
 <div class="example-wrapper">
-    <h1>Contact</avis>
-    <div class="card text-white bg-primary mb-3" style="max-width: 20rem;">
-  <div class="card-header">
-      <input type="text" class="form-control" placeholder="Numéro de téléphone" aria-label="Numéro de téléphone" aria-describedby="button-addon2">
-  </div>
-  <div class="card-body">
-      <textarea class="form-control" id="exampleTextarea" rows="3" placeholder="Commentaire"></textarea>
-      <input type="submit" class="btn btn-light" value="Envoyer">
-  </div>
-</div>
+
+    {# Messages flash success #}
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-success flash-message">{{ message }}</div>
+    {% endfor %}
+
+    {# Messages flash error #}
+    {% for message in app.flashes('error') %}
+        <div class="alert alert-danger flash-message">{{ message }}</div>
+    {% endfor %}
+
+    <h1>Contact</h1>
+    <form action="{{ path('app_contact') }}" method="POST">
+ <div class="card text-white bg-primary mb-3" id="carte-contact" style="max-width: 20rem;">
+    <div class="card-header">
+        {# Préremplissage du numéro et champ readonly si déjà défini #}
+        <input type="text"
+               class="form-control"
+               name="numero"
+               placeholder="Numéro de téléphone"
+               value="{{ app.user ? app.user.telephone : '' }}"
+               {% if app.user and app.user.telephone %}readonly{% endif %}>
+    </div>
+
+    <div class="card-body">
+        <textarea class="form-control" name="commentaire" rows="3" placeholder="Commentaire"></textarea>
+
+        {% if app.user %}
+            <button type="submit" class="btn btn-light mt-2">Envoyer</button>
+        {% else %}
+            <p class="text-warning mt-2">Connectez-vous pour envoyer un message.</p>
+        {% endif %}
+    </div>
 </div>
 
+
+    </form>
+</div>
 {% endblock %}

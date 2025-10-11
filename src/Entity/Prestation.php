@@ -14,15 +14,17 @@ class Prestation
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(type: Types::TEXT)]
+    // ✅ On rend ce champ nullable
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $article = null;
 
-    #[ORM\Column(type: Types::TEXT)]
+    // ✅ Celui-ci aussi
+    #[ORM\Column(type: Types::STRING, length: 255, nullable: true)]
     private ?string $image = null;
 
     #[ORM\ManyToOne(inversedBy: 'prestations')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?user $user_prestation = null;
+    private ?Utilisateur $Utilisateur_prestation = null;
 
     public function getId(): ?int
     {
@@ -34,10 +36,9 @@ class Prestation
         return $this->article;
     }
 
-    public function setArticle(string $article): static
+    public function setArticle(?string $article): static
     {
         $this->article = $article;
-
         return $this;
     }
 
@@ -46,22 +47,20 @@ class Prestation
         return $this->image;
     }
 
-    public function setImage(string $image): static
+    public function setImage(?string $image): static
     {
         $this->image = $image;
-
         return $this;
     }
 
-    public function getUserPrestation(): ?user
+    public function getUtilisateurPrestation(): ?Utilisateur
     {
-        return $this->user_prestation;
+        return $this->Utilisateur_prestation;
     }
 
-    public function setUserPrestation(?user $user_prestation): static
+    public function setUtilisateurPrestation(?Utilisateur $Utilisateur_prestation): static
     {
-        $this->user_prestation = $user_prestation;
-
+        $this->Utilisateur_prestation = $Utilisateur_prestation;
         return $this;
     }
 }
