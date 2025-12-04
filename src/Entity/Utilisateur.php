@@ -114,20 +114,12 @@ public function setTelephone(?string $telephone): static
 }
 
 
-    /**
-     * A visual identifier that represents this user.
-     *
-     * @see UserInterface
-     */
     public function getUserIdentifier(): string
     {
-        return (string) $this->identifiant; // <-- Utiliser identifiant pour l'authentification
+        return (string) $this->identifiant;
     }
 
 
-    /**
-     * @see UserInterface
-     */
     public function getRoles(): array
     {
         $roles = $this->roles;
@@ -137,9 +129,6 @@ public function setTelephone(?string $telephone): static
         return array_unique($roles);
     }
 
-    /**
-     * @param list<string> $roles
-     */
     public function setRoles(array $roles): static
     {
         $this->roles = $roles;
@@ -147,9 +136,6 @@ public function setTelephone(?string $telephone): static
         return $this;
     }
 
-    /**
-     * @see PasswordAuthenticatedUserInterface
-     */
     public function getPassword(): ?string
     {
         return $this->password;
@@ -162,9 +148,6 @@ public function setTelephone(?string $telephone): static
         return $this;
     }
 
-    /**
-     * Ensure the session doesn't contain actual password hashes by CRC32C-hashing them, as supported since Symfony 7.3.
-     */
     public function __serialize(): array
     {
         $data = (array) $this;
@@ -176,7 +159,7 @@ public function setTelephone(?string $telephone): static
     #[\Deprecated]
     public function eraseCredentials(): void
     {
-        // @deprecated, to be removed when upgrading to Symfony 8
+
     }
 
     public function isVerified(): bool

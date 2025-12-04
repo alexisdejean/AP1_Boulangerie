@@ -4,17 +4,17 @@
 
 {% block body %}
 <div class="container my-4">
-    <div class="card text-white bg-primary mb-3">
+    <div style="border-radius:2em;"class="bg-primary mb-3">
         <div class="card-body text-center">
 
             {# Image de présentation #}
             {% if presentation.imagePresentation %}
-                <img src="/{{ presentation.imagePresentation }}?{{ random() }}" 
+                <img style="margin-top: 2em; background-color:white;"src="/{{ presentation.imagePresentation }}?{{ random() }}" 
                      alt="Image de présentation" 
                      class="img-fluid mb-3 rounded shadow" 
                      style="max-height: 300px; object-fit: cover; background: white;">
             {% else %}
-                <p class="text-light">Aucune image pour le moment</p>
+                <p style="color:black;">Aucune image pour le moment</p>
             {% endif %}
 
             {# Flash messages #}
@@ -41,9 +41,9 @@
                 </div>
             {% else %}
                 {% if presentation.descriptionPresentation %}
-                    <p class="card-text mt-3">{{ presentation.descriptionPresentation }}</p>
+                    <p style="color:black;">{{ presentation.descriptionPresentation }}</p>
                 {% else %}
-                    <p class="text-light">Aucune description disponible.</p>
+                    <p style="color:black;">Aucune description disponible.</p>
                 {% endif %}
             {% endif %}
 

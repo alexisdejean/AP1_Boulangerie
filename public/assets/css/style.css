@@ -1,156 +1,312 @@
-card, #card-contact{
-    background-color: rgb(255, 255, 255) !important ;
-    border-radius: 40% !important ;
-    margin-top: auto !important;
+/* -------------------------------------------------------------------------- */
+/* STYLES GÉNÉRAUX                               */
+/* -------------------------------------------------------------------------- */
 
+/* --- Corps et typographie --- */
+body {
+    background: linear-gradient(135deg, #fff8f2, #fce7d4);
+    font-family: 'Poppins', 'Segoe UI', sans-serif;
+    color: #333;
+    margin: 0;
+    padding: 0;
 }
-.submit{
+
+h2, h3 {
+    font-weight: 600;
+    color: #d85c00;
+    text-align: center;
+    margin-top: 1.5rem;
+}
+
+.text-muted {
+    color: #a87244;
+    font-style: italic;
+}
+
+/* --- Alertes --- */
+.alert-success {
+    background: linear-gradient(90deg, #ff7b00, #ff9f40) !important;
+    color: white !important;
+    border: none !important;
+    border-radius: 12px !important;
+    box-shadow: 0 4px 10px rgba(255, 123, 0, 0.25) !important;
+    text-align: center !important;
+    font-weight: 500 !important;
+}
+
+/* -------------------------------------------------------------------------- */
+/* STYLES FORMULAIRES                             */
+/* -------------------------------------------------------------------------- */
+
+form {
+    background: #ffffff;
+    border-radius: 20px;
+    padding: 40px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    margin: 2rem auto;
+    max-width: 800px;
+}
+
+form label {
+    display: block;
+    font-weight: 600;
+    color: #7a4a00;
+    margin-bottom: 8px;
+}
+
+form input, form textarea, form select {
+    display: block;
+    width: 100%;
+    border-radius: 12px;
+    border: 1px solid #e1a766;
+    padding: 10px 12px;
+    margin-bottom: 20px;
+    transition: all 0.2s ease-in-out;
+}
+
+form input:focus, form textarea:focus, form select:focus {
+    border-color: #ff7b00;
+    box-shadow: 0 0 0 0.25rem rgba(255, 123, 0, 0.25);
+}
+
+/* --- Boutons --- */
+.btn-primary {
+    background: linear-gradient(90deg, #ff7b00, #ff9f40) !important;
+    border: none;
+    border-radius: 40px;
+    font-weight: 600;
+    padding: 10px 25px;
+    letter-spacing: 0.3px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    display: block;
+    margin: 0 auto;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 18px rgba(255, 123, 0, 0.3);
+}
+
+.submit {
     margin-top: 10% !important;
 }
 
+/* --- Cartes spéciales --- */
+.card, #card-contact {
+    background-color: rgb(255, 255, 255) !important;
+    border-radius: 40% !important;
+    margin-top: auto !important;
+}
 
+/* -------------------------------------------------------------------------- */
+/* PAGE PRESTATION (Image Size & Separator FIX)      */
+/* -------------------------------------------------------------------------- */
 
+/* Conteneur de prestation (La carte individuelle) */
+.prestation {
+    background: #fff;
+    border-radius: 20px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+    overflow: hidden;
+    max-width: 1000px;
+    padding: 0;
+    
+    /* MODIFICATION CLÉ POUR LES BORDURES ENTRE CHAQUE PRESTATION */
+    margin: 2rem auto 3.5rem auto; /* Augmente la marge du bas pour laisser de l'espace */
+    position: relative; /* Nécessaire pour le pseudo-élément */
+}
 
+/* AJOUT CLÉ : Ligne de séparation entre les prestations */
+.prestation:not(:last-child)::after {
+    content: '';
+    display: block;
+    position: absolute;
+    bottom: -1.75rem; /* Déplace la ligne dans la marge que nous avons ajoutée */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%; /* Largeur de la ligne */
+    height: 3px;
+    background-color: #ff7b00; /* Couleur de la séparation */
+    border-radius: 2px;
+}
 
+.prestation:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 30px rgba(255, 123, 0, 0.25);
+}
 
+/* Ligne de la prestation (Gère la hauteur des colonnes) */
+.prestation .row {
+    display: flex !important; /* Force Flexbox */
+    align-items: stretch !important; 
+    /* 🔑 HAUTEUR CLÉ : VRAIMENT FORCER LA HAUTEUR */
+    min-height: 400px !important; /* Augmenté à 400px. Videz le cache! */
+}
 
-
-
-
-
-
-/* grid pour la page prestation */
-.prestation {  display: grid;
+/* Colonne de texte (.col-md-4) */
+.prestation .col-md-4 {
+    order: 1; 
+    padding: 25px;
+    display: flex;
+    align-items: center; 
+    justify-content: center; 
     text-align: center;
+    background-color: #fff8f2;
+}
+
+/* Colonne d'image (.col-md-8) */
+.prestation .col-md-8 {
+    order: 2; 
+    padding: 0;
+    overflow: hidden;
+    height: 100% !important; /* FORCE LA HAUTEUR */
+    background-color: #fce7d4;
+}
+
+/* L'image (<img>) elle-même */
+.prestation .col-md-8 img {
+    /* AJOUT CLÉ: !important pour écraser les max-height/max-width de Bootstrap */
+    width: 100% !important;
+    height: 100% !important;
+    max-width: 100% !important;
+    max-height: 100% !important;
+
+    object-fit: cover !important;
+    transition: transform 0.3s ease;
+    display: block !important;
+}
+
+.prestation img:hover {
+    transform: scale(1.05);
+}
+
+/* --- Media Query (Mobile) --- */
+@media (max-width: 768px) {
+    .prestation {
+        margin: 2rem auto 2.5rem auto; /* Moins de marge sur mobile */
+    }
+    .prestation:not(:last-child)::after {
+        bottom: -1.25rem; /* Ajuste la position de la ligne */
+    }
+
+    .prestation .row {
+        flex-direction: column;
+        min-height: initial; 
+    }
+
+    .prestation .col-md-4, .prestation .col-md-8 {
+        width: 100%;
+        order: initial;
+        border-radius: 0;
+        text-align: center;
+    }
+
+    .prestation .col-md-8 img {
+        border-radius: 20px 20px 0 0;
+        max-height: 300px !important;
+    }
+    
+    .prestation .col-md-4 {
+        border-radius: 0 0 20px 20px;
+    }
+}
+
+
+/* -------------------------------------------------------------------------- */
+/* PAGES CONNEXION (CSS GRID)                        */
+/* -------------------------------------------------------------------------- */
+
+.connexion { 
+    display: grid;
+    grid-template-columns: repeat(6, 1fr) 0.9fr 1.1fr repeat(2, 1fr);
+    grid-template-rows: repeat(10, 1fr);
+    gap: 0px 0px;
+    grid-auto-flow: row;
+    grid-template-areas:
+        ". . . . . . . . . ."
+        ". . . . . . . . . ."
+        ". . . Zone-connexion Zone-connexion Zone-connexion Zone-connexion . . ."
+        ". . . Zone-connexion Zone-connexion Zone-connexion Zone-connexion . . ."
+        ". . . Zone-connexion Zone-connexion Zone-connexion Zone-connexion . . ."
+        ". . . Zone-connexion Zone-connexion Zone-connexion Zone-connexion . . ."
+        ". . . Zone-connexion Zone-connexion Zone-connexion Zone-connexion . . ."
+        ". . . Zone-connexion Zone-connexion Zone-connexion Zone-connexion . . ."
+        ". . . . inscription inscription . . . ."
+        ". . . . . . . . . .";
+}
+
+.zone-connexion { 
+    display: grid;
+    grid-template-columns: 0.5fr 1.5fr 1.6fr 0.4fr;
+    grid-template-rows: 0.5fr 1.5fr repeat(2, 1fr) 1.5fr 0.5fr;
+    gap: 0px 0px;
+    grid-auto-flow: row;
+    grid-template-areas:
+        ". titre-connexion titre-connexion ."
+        ". millieu-connexion millieu-connexion ."
+        ". millieu-connexion millieu-connexion ."
+        ". millieu-connexion millieu-connexion ."
+        ". millieu-connexion millieu-connexion ."
+        ". bouton-connexion bouton-connexion .";
+    grid-area: Zone-connexion;
     background-color: #e95420;
-  grid-template-columns: repeat(10, 1fr);
-  grid-template-rows: repeat(10, 1fr);
-  gap: 0px 0px;
-  grid-auto-flow: row;
-  grid-template-areas:
-    ". . . . . . . . . ."
-    ". image-1 image-1 image-1 image-1 . . . . ."
-    ". image-1 image-1 image-1 image-1 . text-image-1 text-image-1 text-image-1 ."
-    ". image-1 image-1 image-1 image-1 . text-image-1 text-image-1 text-image-1 ."
-    ". image-1 image-1 image-1 image-1 . . . . ."
-    ". . . . . Image-2 Image-2 Image-2 Image-2 ."
-    ". text-image-2 text-image-2 text-image-2 . Image-2 Image-2 Image-2 Image-2 ."
-    ". text-image-2 text-image-2 text-image-2 . Image-2 Image-2 Image-2 Image-2 ."
-    ". . . . . Image-2 Image-2 Image-2 Image-2 ."
-    ". . . . . . . . . .";
+    border-radius: 20px;
+    overflow: hidden;
 }
 
-.text-image-1 { grid-area: text-image-1; 
-color: white;}
-
-.image-1 { grid-area: image-1; 
-background-color: white;}
-
-.image-2 { grid-area: Image-2; 
-background-color: white;}
-
-.text-image-2 { grid-area: text-image-2; color: white;}
-
-
-/* grid pour la page connexion */
-.connexion {  display: grid;
-  grid-template-columns: repeat(6, 1fr) 0.9fr 1.1fr repeat(2, 1fr);
-  grid-template-rows: repeat(10, 1fr);
-  gap: 0px 0px;
-  grid-auto-flow: row;
-  grid-template-areas:
-    ". . . . . . . . . ."
-    ". . . . . . . . . ."
-    ". . . Zone-connexion Zone-connexion Zone-connexion Zone-connexion . . ."
-    ". . . Zone-connexion Zone-connexion Zone-connexion Zone-connexion . . ."
-    ". . . Zone-connexion Zone-connexion Zone-connexion Zone-connexion . . ."
-    ". . . Zone-connexion Zone-connexion Zone-connexion Zone-connexion . . ."
-    ". . . Zone-connexion Zone-connexion Zone-connexion Zone-connexion . . ."
-    ". . . Zone-connexion Zone-connexion Zone-connexion Zone-connexion . . ."
-    ". . . . inscription inscription . . . ."
-    ". . . . . . . . . .";
+.millieu-connexion { 
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 0.8fr 1.2fr 0.8fr 1.2fr;
+    gap: 7px 0px;
+    grid-auto-flow: row;
+    grid-area: millieu-connexion;
+    justify-items: center;
 }
 
-.zone-connexion {  display: grid;
-  grid-template-columns: 0.5fr 1.5fr 1.6fr 0.4fr;
-  grid-template-rows: 0.5fr 1.5fr repeat(2, 1fr) 1.5fr 0.5fr;
-  gap: 0px 0px;
-  grid-auto-flow: row;
-  grid-template-areas:
-    ". titre-connexion titre-connexion ."
-    ". millieu-connexion millieu-connexion ."
-    ". millieu-connexion millieu-connexion ."
-    ". millieu-connexion millieu-connexion ."
-    ". millieu-connexion millieu-connexion ."
-    ". bouton-connexion bouton-connexion .";
-  grid-area: Zone-connexion;
-  background-color: #e95420;
-  border-radius: 20px;
-  overflow: hidden;
+.bouton-connexion { grid-area: bouton-connexion; background-color:#e95420; justify-self: center;}
+.titre-connexion { grid-area: titre-connexion; justify-self: center;}
+.inscription { grid-area: inscription; justify-self: center;}
+
+/* -------------------------------------------------------------------------- */
+/* PAGE INSCRIPTION (CSS GRID)                       */
+/* -------------------------------------------------------------------------- */
+
+.register { 
+    display: grid;
+    grid-template-columns: repeat(6, 1fr) 0.9fr 1.1fr repeat(2, 1fr);
+    grid-template-rows: repeat(10, 1fr);
+    gap: 0px 0px;
+    grid-auto-flow: row;
+    grid-template-areas:
+        ". . . . . . . . . ."
+        ". . . . . . . . . ."
+        ". . . zone-register zone-register zone-register zone-register . . ."
+        ". . . zone-register zone-register zone-register zone-register . . ."
+        ". . . zone-register zone-register zone-register zone-register . . ."
+        ". . . zone-register zone-register zone-register zone-register . . ."
+        ". . . zone-register zone-register zone-register zone-register . . ."
+        ". . . zone-register zone-register zone-register zone-register . . ."
+        ". . . . . . . . . ."
+        ". . . . . . . . . .";
 }
 
-.millieu-connexion {  display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: 0.8 1.2 0.8 1.2;
-  gap: 7px 0px;
-  grid-auto-flow: row;
-  grid-template-areas:
-    "."
-    "."
-    "."
-    ".";
-  grid-area: millieu-connexion;
-  justify-items:center;
-}
-
-.bouton-connexion { grid-area: bouton-connexion;
-background-color:#e95420; justify-self: center;}
-
-.titre-connexion { grid-area: titre-connexion; 
-justify-self: center;}
-.inscription {
-    grid-area: inscription;
-    justify-self: center;
-}
-
-
-
-/* grid pour la page d'inscription */
-.register {  display: grid;
-  grid-template-columns: repeat(6, 1fr) 0.9fr 1.1fr repeat(2, 1fr);
-  grid-template-rows: repeat(10, 1fr);
-  gap: 0px 0px;
-  grid-auto-flow: row;
-  grid-template-areas:
-    ". . . . . . . . . ."
-    ". . . . . . . . . ."
-    ". . . zone-register zone-register zone-register zone-register . . ."
-    ". . . zone-register zone-register zone-register zone-register . . ."
-    ". . . zone-register zone-register zone-register zone-register . . ."
-    ". . . zone-register zone-register zone-register zone-register . . ."
-    ". . . zone-register zone-register zone-register zone-register . . ."
-    ". . . zone-register zone-register zone-register zone-register . . ."
-    ". . . . . . . . . ."
-    ". . . . . . . . . .";
-}
-
-.zone-register {  display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: 0.2fr 2.3fr 0.5fr;
-  gap: 0px 0px;
-  grid-auto-flow: row;
-  grid-template-areas:
-    "titre-register"
-    "."
-    "bouton-register";
-  grid-area: zone-register;
-  background-color: #e95420;
-  border-radius: 10px;
-  justify-items: center;
+.zone-register { 
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 0.2fr 2.3fr 0.5fr;
+    gap: 0px 0px;
+    grid-auto-flow: row;
+    grid-template-areas:
+        "titre-register"
+        "."
+        "bouton-register";
+    grid-area: zone-register;
+    background-color: #e95420;
+    border-radius: 10px;
+    justify-items: center;
 }
 
 .titre-register { grid-area: titre-register; }
-
-.bouton-register { grid-area: bouton-register; justify-self: center;
-background-color:#d1410c;}
-
+.bouton-register { grid-area: bouton-register; justify-self: center; background-color:#d1410c;}
